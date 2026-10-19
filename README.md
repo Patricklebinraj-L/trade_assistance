@@ -56,3 +56,8 @@ Set `CHATGPT_API_KEY` and/or `GEMINI_API_KEY` in `.env`. Keys are only used by P
 - Risk sizing is a linear price-distance estimate. Inverse/quanto contracts may use different P&L maths. Verify contract specs before using any result.
 - “Anywhere” depends on hosting. `.htaccess` requires Apache and `AllowOverride All`; Nginx/IIS need equivalent server rules. The direct `api.php?action=...` routes work without rewrite.
 - Before deployment: `APP_ENV=production`, `APP_DEBUG=false`, HTTPS, least-privilege DB account, backups, keep `.env` private, and review all configuration.
+
+
+## Dashboard blank-screen fix (v2.1)
+
+The JavaScript dashboard script was corrected: a line-break regular expression in the AI response renderer had been split across physical lines, causing a JavaScript syntax error. Since the browser parses the complete file before running it, that error stopped all dashboard initialization (ticker, chart, order book and trades), even when the PHP API endpoints returned valid JSON. The script URL version was also bumped to invalidate the browser cache. After replacing the project files, hard-refresh with Ctrl+F5.
